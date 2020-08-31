@@ -42,7 +42,7 @@
 <style scoped>
 section.purchase-content h1 {
   font-size: 1.8rem;
-  color: #AA6C39;
+  color: #2c3e50;
   margin-bottom: 1.4rem;
 }
 
@@ -61,7 +61,7 @@ section.purchase-content h3 {
 
 section.purchase-content h3 strong {
   display: inline;
-  color: #AA6C39;
+  color: #2c3e50;
 }
 
 section.purchase-content h4 {
