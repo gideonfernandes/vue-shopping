@@ -7,12 +7,13 @@
         temos <strong>diversidade</strong> em tecnologia para você...
       </h1>
 
-      <form>
+      <form @submit="handleOnSubmit">
         <label for="name">NOME *</label>
         <input
           type="text" 
           name="name"
           placeholder="Seu nome"
+          v-model="user.name"
         />
 
         <label for="lastName">SOBRENOME *</label>
@@ -20,6 +21,7 @@
           type="text" 
           name="lastName"
           placeholder="Seu sobrenome"
+          v-model="user.lastName"
         />
 
         <label for="email">EMAIL *</label>
@@ -27,6 +29,7 @@
           type="email" 
           name="email"
           placeholder="Seu melhor e-mail"
+          v-model="user.email"
         />
 
         <label for="email">SENHA *</label>
@@ -35,6 +38,7 @@
           name="password"
           placeholder="Sua nova senha"
           minLength="7"
+          v-model="user.password"
         />
 
         <label for="email">CONFIRMAR SENHA *</label>
@@ -43,6 +47,7 @@
           name="confirmPassword"
           placeholder="Confirme sua senha"
           minLength="7"
+          v-model="user.confirmPassword"
         />
 
         <button
@@ -61,11 +66,49 @@
 
 <script>
 import Logo from '../components/Logo.vue'
+import { mapActions } from 'vuex';
 
 export default {
   name: 'Register',
   components: {
     Logo
+  },
+  data() {
+    return {
+      user: {
+        name: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['registerUser']),
+
+    async handleOnSubmit(event) {
+      event.preventDefault();
+
+      const { name, lastName, email, password, confirmPassword } = this.user;
+
+      if (name.trim() === '' || lastName.trim() === '' ) {
+        console.log('Os campos nome e sobrenome são obrigatórios.');
+        return;
+      } else if (email.trim() == '') {
+        console.log('O campo e-mail é obrigatório.');
+        return;
+      } else if (password.trim() === '' || confirmPassword.trim() === '') {
+        console.log('Os campos senha e confirmar senha são obrigatórios.');
+        return;
+      } else if (password !== confirmPassword) {
+        console.log('As senhas não correspondem.');
+        return;
+      } else {
+        await this.registerUser(this.user);
+        this.user = {};
+      }
+    }
   }
 }
 </script>

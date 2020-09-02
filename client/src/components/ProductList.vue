@@ -1,102 +1,12 @@
 <template>
   <ul class="products">
-    <li>
+    <li v-for="product in allProducts" :key="product.id">
       <img
         src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
         alt="Lancôme La Vie est Belle"
       />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
-
-      <button
-        type="button"
-      >
-        <div>
-          <CartIcon fillColor="#FFF" :size="16" /> 0
-        </div>
-
-        <span>Adicionar ao carrinho</span>
-      </button>
-    </li>
-    <li>
-      <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
-      />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
-
-      <button
-        type="button"
-      >
-        <div>
-          <CartIcon fillColor="#FFF" :size="16" /> 0
-        </div>
-
-        <span>Adicionar ao carrinho</span>
-      </button>
-    </li>
-    <li>
-      <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
-      />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
-
-      <button
-        type="button"
-      >
-        <div>
-          <CartIcon fillColor="#FFF" :size="16" /> 0
-        </div>
-
-        <span>Adicionar ao carrinho</span>
-      </button>
-    </li>
-    <li>
-      <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
-      />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
-
-      <button
-        type="button"
-      >
-        <div>
-          <CartIcon fillColor="#FFF" :size="16" /> 0
-        </div>
-
-        <span>Adicionar ao carrinho</span>
-      </button>
-    </li>
-    <li>
-      <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
-      />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
-
-      <button
-        type="button"
-      >
-        <div>
-          <CartIcon fillColor="#FFF" :size="16" /> 0
-        </div>
-
-        <span>Adicionar ao carrinho</span>
-      </button>
-    </li>
-    <li>
-      <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
-      />
-      <strong>Lancôme La Vie est Belle</strong>
-      <span>R$ 233,50</span>
+      <strong>{{ product.title }}</strong>
+      <span>{{ product.price }}</span>
 
       <button
         type="button"
@@ -112,12 +22,20 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import CartIcon from 'vue-material-design-icons/Cart.vue';
 
 export default {
   name: 'ProductList',
   components: {
     CartIcon
+  },
+  computed: mapGetters(['allProducts']),
+  methods: {
+    ...mapActions(['loadProducts']),
+  },
+  created() {
+    this.loadProducts();
   }
 }
 </script>

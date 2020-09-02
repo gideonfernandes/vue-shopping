@@ -8,11 +8,12 @@
       </div>
       <CartIcon fillColor="#FFF" :size="48" />
     </router-link>
-    <LogoutIcon fillColor="#FFF" :size="48" />
+    <LogoutIcon fillColor="#FFF" :size="48" @click="handleLogout" />
   </header>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from '../components/Logo.vue'
 import CartIcon from 'vue-material-design-icons/Cart.vue';
 import LogoutIcon from 'vue-material-design-icons/PowerSettings.vue';
@@ -23,6 +24,15 @@ export default {
     Logo,
     CartIcon,
     LogoutIcon
+  },
+  methods: {
+    ...mapActions(['logoutUser']),
+
+    async handleLogout(event) {
+      event.preventDefault();
+
+      await this.logoutUser();
+    }
   }
 }
 </script>

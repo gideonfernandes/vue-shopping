@@ -1,4 +1,4 @@
-// import axios from 'axios';
+import axios from 'axios';
 
 const state = {
   products: [],
@@ -10,11 +10,15 @@ const getters = {
 };
 
 const actions = {
+  async loadProducts({ commit }) {
+    const response = await axios.get('http://localhost:8888/products');
 
+    commit('loadProductsSuccess', response.data);
+  }
 };
 
 const mutations = {
-
+  loadProductsSuccess: (state, products) => (state.products = products)
 };
 
 export default {
