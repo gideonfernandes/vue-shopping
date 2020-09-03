@@ -12,9 +12,21 @@ const getters = {
 };
 
 const actions = {
-  async loadToken({ commit }) {
+  loadToken({ commit }) {
+    // Get token & user from localStorage
+    const token = localStorage.getItem('token');
     const userId = localStorage.getItem('authenticateUserId');
-    commit('loadTokenSuccess', userId);
+
+    // Set token header on axios requests
+    setAuthToken(token);
+
+    // to-do a backend request to verify if token and user id is valid
+
+    if (token && userId) {
+      commit('authSuccess', userId);
+    } else {
+      commit('authDismiss');
+    }
   },
 
   async registerUser({ commit }, userData) {
@@ -53,6 +65,14 @@ const actions = {
         .post('http://localhost:8888/sessions', userData);
   
       const { token, user } = response.data;
+
+      // Set token & user on localStorage
+      localStorage.setItem('token', token);
+      localStorage.setItem('authenticateUserId', user.id);
+
+      // Set token header on axios requests
+      setAuthToken(token);
+      
       commit('authSuccess', token, user.id);
     } catch (error) {
       if (error.response) {
@@ -79,24 +99,18 @@ const actions = {
     // Remove token header on axios requests
     setAuthToken(localStorage.token);
 
-    commit('logoutUserSuccess');
+    commit('authDismiss');
   }
 };
 
 const mutations = {
-  loadTokenSuccess: (userId) => (
-    state.isAuthenticated = true,
-    state.loading = false,
-    state.user = userId
-  ),
-
   authSuccess: (state, userId) => (
     state.isAuthenticated = true,
     state.loading = false,
     state.user = userId
   ),
 
-  logoutUserSuccess: (state) => (
+  authDismiss: (state) => (
     state.isAuthenticated = false,
     state.loading = false,
     state.user = null

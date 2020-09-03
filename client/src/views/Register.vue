@@ -65,8 +65,8 @@
 </template>
 
 <script>
-import Logo from '../components/Logo.vue'
 import { mapActions } from 'vuex';
+import Logo from '../components/Logo.vue'
 
 export default {
   name: 'Register',

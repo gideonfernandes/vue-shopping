@@ -8,12 +8,13 @@
           <strong> qualidade</strong> em um só lugar!
         </h1>
 
-        <form>
+        <form @submit="handleOnSubmit">
           <label for="email">EMAIL *</label>
           <input
             type="email" 
             name="email"
             placeholder="Seu email cadastrado"
+            v-model="user.email"
           />
 
           <label for="password">SENHA *</label>
@@ -22,6 +23,7 @@
             name="password"
             placeholder="Sua senha"
             minLength="7"
+            v-model="user.password"
           />
 
           <button
@@ -39,12 +41,38 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Logo from '../components/Logo.vue'
 
 export default {
   name: 'Login',
   components: {
     Logo
+  },
+  data() {
+    return {
+      user: {
+        email: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    ...mapActions(['loginUser']),
+
+    async handleOnSubmit(event) {
+      event.preventDefault();
+
+      const { email, password } = this.user;
+
+      if (email.trim() === '' || password.trim() === '' ) {
+        console.log('Os campos email e senha são obrigatórios.');
+        return;
+      } else {
+        await this.loginUser(this.user);
+        this.user = {};
+      }
+    }
   }
 }
 </script>

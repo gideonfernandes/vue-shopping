@@ -4,6 +4,20 @@
   </div>
 </template>
 
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  name: 'App',
+  methods: {
+    ...mapActions(['loadToken'])
+  },
+  created() {
+    this.loadToken();
+  }
+}
+</script>
+
 <style>
 * {
   margin: 0;

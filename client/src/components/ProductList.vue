@@ -2,8 +2,8 @@
   <ul class="products">
     <li v-for="product in allProducts" :key="product.id">
       <img
-        src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-        alt="Lancôme La Vie est Belle"
+        :src="'http://localhost:8888/files/' + product.image"
+        :alt="product.title"
       />
       <strong>{{ product.title }}</strong>
       <span>{{ product.price }}</span>
