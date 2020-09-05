@@ -13,16 +13,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr v-for="product in productsOnCart" :key="product._id">
             <td>
               <img
-                src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-                alt="Lancôme La Vie est Belle"
+                :src="'http://localhost:8888/files/' + product.image"
+                :alt="product.title"
               />
             </td>
             <td>
-              <strong>Lancôme La Vie est Belle</strong>
-              <span>R$ 233,50</span>
+              <strong>{{ product.title }}</strong>
+              <span>{{ product.priceFormatted }}</span>
             </td>
             <td>
               <div>
@@ -40,81 +40,7 @@
               </div>
             </td>
             <td>
-              <strong>R$ 771,47</strong>
-            </td>
-            <td>
-              <button
-                type="button"
-              >
-                <DeleteIcon fillColor="#2c3e50" :size="20" />
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-                alt="Lancôme La Vie est Belle"
-              />
-            </td>
-            <td>
-              <strong>Lancôme La Vie est Belle</strong>
-              <span>R$ 233,50</span>
-            </td>
-            <td>
-              <div>
-                <button
-                  type="button"
-                >
-                  <MinusIcon fillColor="#2c3e50" :size="20" />
-                </button>
-                <input type="number" readOnly value="5" />
-                <button
-                  type="button"
-                >
-                  <PlusIcon fillColor="#2c3e50" :size="20" />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>R$ 771,47</strong>
-            </td>
-            <td>
-              <button
-                type="button"
-              >
-                <DeleteIcon fillColor="#2c3e50" :size="20" />
-              </button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                src="https://evening-sierra-83309.herokuapp.com/files/product1.jpg"
-                alt="Lancôme La Vie est Belle"
-              />
-            </td>
-            <td>
-              <strong>Lancôme La Vie est Belle</strong>
-              <span>R$ 233,50</span>
-            </td>
-            <td>
-              <div>
-                <button
-                  type="button"
-                >
-                  <MinusIcon fillColor="#2c3e50" :size="20" />
-                </button>
-                <input type="number" readOnly value="5" />
-                <button
-                  type="button"
-                >
-                  <PlusIcon fillColor="#2c3e50" :size="20" />
-                </button>
-              </div>
-            </td>
-            <td>
-              <strong>R$ 771,47</strong>
+              <strong>{{ product.price * product.amount }}</strong>
             </td>
             <td>
               <button
@@ -143,6 +69,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Header from '../components/Header.vue'
 import Purchase from '../components/Purchase.vue'
 
@@ -158,7 +85,8 @@ export default {
     MinusIcon,
     PlusIcon,
     DeleteIcon
-  } 
+  },
+  computed: mapGetters(['productsOnCart']),
 }
 </script>
 

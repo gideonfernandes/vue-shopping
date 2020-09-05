@@ -10,6 +10,7 @@
 
       <button
         type="button"
+        @click="handleAddToCart(product._id)"
       >
         <div>
           <CartIcon fillColor="#FFF" :size="16" /> 0
@@ -38,6 +39,10 @@ export default {
   computed: mapGetters(['allProducts']),
   methods: {
     ...mapActions(['loadProducts']),
+    ...mapActions(['addToCart']),
+    async handleAddToCart(productId) {
+      await this.addToCart(productId);
+    }
   },
   created() {
     if (this.isAuthenticated) {

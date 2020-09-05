@@ -45,7 +45,6 @@ const actions = {
       // Set token header on axios requests
       setAuthToken(token);
 
-      state.loading = false;
       commit('authSuccess', user.id);
     } catch (error) {
       if (error.response) {
@@ -78,7 +77,6 @@ const actions = {
       // Set token header on axios requests
       setAuthToken(token);
       
-      state.loading = false;
       commit('authSuccess', token, user.id);
     } catch (error) {
       if (error.response) {

@@ -27,7 +27,8 @@ const mutations = {
       price: product.price.toLocaleString('pt-BR',
         { style: 'currency', currency: 'BRL' }
       )
-    })))
+    }))
+  )
 };
 
 export default {

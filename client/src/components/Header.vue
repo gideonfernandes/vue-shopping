@@ -4,7 +4,7 @@
     <router-link class="cart" to="/cart">
       <div>
         <strong>Meu carrinho</strong>
-        <span>7 itens</span>
+        <span>{{ cartSize }} itens</span>
       </div>
       <CartIcon fillColor="#FFF" :size="48" />
     </router-link>
@@ -24,6 +24,9 @@ export default {
     Logo,
     CartIcon,
     LogoutIcon
+  },
+  computed: {
+    cartSize() { return this.$store.state.cart.products.length }
   },
   methods: {
     ...mapActions(['logoutUser']),
