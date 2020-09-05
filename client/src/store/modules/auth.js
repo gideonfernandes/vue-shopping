@@ -29,8 +29,10 @@ const actions = {
     }
   },
 
-  async registerUser({ commit }, userData) {
+  async registerUser({ commit, state }, userData) {
     try {
+      state.loading = true;
+
       const response = await axios
         .post('http://localhost:8888/users', userData);
 
@@ -43,6 +45,7 @@ const actions = {
       // Set token header on axios requests
       setAuthToken(token);
 
+      state.loading = false;
       commit('authSuccess', user.id);
     } catch (error) {
       if (error.response) {
@@ -59,8 +62,10 @@ const actions = {
     }
   },
   
-  async loginUser({ commit }, userData) {
+  async loginUser({ commit, state }, userData) {
     try {
+      state.loading = true;
+
       const response = await axios
         .post('http://localhost:8888/sessions', userData);
   
@@ -73,6 +78,7 @@ const actions = {
       // Set token header on axios requests
       setAuthToken(token);
       
+      state.loading = false;
       commit('authSuccess', token, user.id);
     } catch (error) {
       if (error.response) {

@@ -49,6 +49,14 @@ export default {
   components: {
     Logo
   },
+  computed: {
+    isAuthenticated() { return this.$store.state.auth.isAuthenticated }
+  },
+  beforeMount() {
+    if (this.isAuthenticated && !this.loading) {
+      this.$router.push({ name: 'Home' });
+    }
+  },
   data() {
     return {
       user: {
@@ -71,6 +79,7 @@ export default {
       } else {
         await this.loginUser(this.user);
         this.user = {};
+        this.$router.push({ name: 'Home' });
       }
     }
   }

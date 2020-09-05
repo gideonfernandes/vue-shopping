@@ -30,12 +30,19 @@ export default {
   components: {
     CartIcon
   },
+  data() {
+    return {
+      isAuthenticated: this.$store.state.auth.isAuthenticated
+    }
+  },
   computed: mapGetters(['allProducts']),
   methods: {
     ...mapActions(['loadProducts']),
   },
   created() {
-    this.loadProducts();
+    if (this.isAuthenticated) {
+      this.loadProducts();
+    }
   }
 }
 </script>

@@ -17,6 +17,15 @@ export default {
     Header,
     ProductList,
     Footer,
+  },
+  computed: {
+    loading() { return this.$store.state.auth.loading },
+    isAuthenticated() { return this.$store.state.auth.isAuthenticated }
+  },
+  beforeMount() {
+    if (!this.isAuthenticated && !this.loading) {
+      this.$router.push({ name: 'Login' });
+    }
   }
 }
 </script>

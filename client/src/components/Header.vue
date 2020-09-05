@@ -32,6 +32,7 @@ export default {
       event.preventDefault();
 
       await this.logoutUser();
+      this.$router.push({ name: 'Login' });
     }
   }
 }
